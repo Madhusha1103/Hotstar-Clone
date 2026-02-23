@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        APP_NAME = "Hotstar1"
+        APP_NAME = "Hotstar"
         NODE_ENV = "production"
     }
 
