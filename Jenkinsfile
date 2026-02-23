@@ -14,15 +14,22 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install --production'
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
             }
         }
 
         stage('Run with PM2') {
             steps {
                 sh '''
-                pm2 describe Hotstar1 > /dev/null 2>&1 && pm2 delete Hotstar1 || true
-                pm2 start server.js --name Hotstar1 --update-env
+                pm2 describe $APP_NAME > /dev/null 2>&1 && pm2 delete $APP_NAME || true
+                npm install -g serve
+                pm2 start serve --name $APP_NAME -- -s build -l 3000
                 pm2 save
                 pm2 status
                 '''
@@ -30,5 +37,3 @@ pipeline {
         }
     }
 }
-
-
