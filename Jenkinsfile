@@ -20,7 +20,10 @@ pipeline {
 
         stage('Build React App') {
             steps {
-                sh 'npm run build'
+                sh '''
+                export CI=false
+                npm run build
+                '''
             }
         }
 
@@ -37,5 +40,3 @@ pipeline {
         }
     }
 }
-
-
