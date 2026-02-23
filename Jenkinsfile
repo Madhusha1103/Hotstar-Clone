@@ -31,8 +31,7 @@ pipeline {
             steps {
                 sh '''
                 pm2 describe $APP_NAME > /dev/null 2>&1 && pm2 delete $APP_NAME || true
-                npm install -g serve
-                pm2 start serve --name $APP_NAME -- -s build -l 3000
+                pm2 start "npx serve -s build -l 3000" --name $APP_NAME
                 pm2 save
                 pm2 status
                 '''
